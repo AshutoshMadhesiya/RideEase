@@ -79,3 +79,172 @@ Register a new user.
       "error": "Internal Server Error"
     }
     ```
+
+### POST /users/login
+
+Login an existing user.
+
+#### Request
+
+- **URL**: `/users/login`
+- **Method**: `POST`
+- **Headers**:
+  - `Content-Type: application/json`
+- **Body**:
+  ```json
+  {
+    "email": "john.doe@example.com",
+    "password": "password123"
+  }
+  ```
+
+#### Response
+
+- **Success**:
+
+  - **Status Code**: `200 OK`
+  - **Body**:
+    ```json
+    {
+      "token": "jwt_token",
+      "user": {
+        "_id": "user_id",
+        "fullname": {
+          "firstname": "John",
+          "lastname": "Doe"
+        },
+        "email": "john.doe@example.com"
+        // ...other user fields...
+      }
+    }
+    ```
+
+- **Validation Error**:
+
+  - **Status Code**: `400 Bad Request`
+  - **Body**:
+    ```json
+    {
+      "errors": [
+        {
+          "msg": "Invalid Email",
+          "param": "email",
+          "location": "body"
+        },
+        {
+          "msg": "Password is too short",
+          "param": "password",
+          "location": "body"
+        }
+      ]
+    }
+    ```
+
+- **Authentication Error**:
+
+  - **Status Code**: `401 Unauthorized`
+  - **Body**:
+    ```json
+    {
+      "message": "Invalid email or password"
+    }
+    ```
+
+- **Server Error**:
+  - **Status Code**: `500 Internal Server Error`
+  - **Body**:
+    ```json
+    {
+      "error": "Internal Server Error"
+    }
+    ```
+
+### GET /users/profile
+
+Get the profile of the authenticated user.
+
+#### Request
+
+- **URL**: `/users/profile`
+- **Method**: `GET`
+- **Headers**:
+  - `Authorization`: `Bearer jwt_token`
+
+#### Response
+
+- **Success**:
+
+  - **Status Code**: `200 OK`
+  - **Body**:
+    ```json
+    {
+      "_id": "user_id",
+      "fullname": {
+        "firstname": "John",
+        "lastname": "Doe"
+      },
+      "email": "john.doe@example.com"
+      // ...other user fields...
+    }
+    ```
+
+- **Authentication Error**:
+
+  - **Status Code**: `401 Unauthorized`
+  - **Body**:
+    ```json
+    {
+      "message": "Unauthorized"
+    }
+    ```
+
+- **Server Error**:
+  - **Status Code**: `500 Internal Server Error`
+  - **Body**:
+    ```json
+    {
+      "error": "Internal Server Error"
+    }
+    ```
+
+### GET /users/logout
+
+Logout the authenticated user.
+
+#### Request
+
+- **URL**: `/users/logout`
+- **Method**: `GET`
+- **Headers**:
+  - `Authorization`: `Bearer jwt_token`
+
+#### Response
+
+- **Success**:
+
+  - **Status Code**: `200 OK`
+  - **Body**:
+    ```json
+    {
+      "message": "Logged out successfully"
+    }
+    ```
+
+- **Authentication Error**:
+
+  - **Status Code**: `401 Unauthorized`
+  - **Body**:
+    ```json
+    {
+      "message": "Unauthorized"
+    }
+    ```
+
+- **Server Error**:
+  - **Status Code**: `500 Internal Server Error`
+  - **Body**:
+    ```json
+    {
+      "error": "Internal Server Error"
+    }
+    ```
