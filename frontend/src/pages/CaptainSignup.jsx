@@ -28,7 +28,7 @@ const CaptainSignup = () => {
     }
   return (
     <div>
-       <div className='p-7 h-screen flex flex-col justify-between' >
+       <div className='p-7 h-screen flex flex-col justify-between max-w-md mx-auto bg-gray-50' >
     <div>
        <img className='w-16 mb-10'src='https://www.svgrepo.com/show/505031/uber-driver.svg' />
     <form onSubmit={(e)=>{

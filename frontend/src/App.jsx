@@ -1,23 +1,32 @@
-import React from 'react'
-import { Route, Routes } from 'react-router-dom'
-import Home from './pages/home'
-import Login from './pages/Login'
-import Signup  from './pages/Signup'
-import Captainlogin from './pages/Captainlogin'
-import CaptainSignup  from './pages/CaptainSignup'
-
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import Start from "./pages/Start";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Captainlogin from "./pages/Captainlogin";
+import CaptainSignup from "./pages/CaptainSignup";
+import Home from "./pages/home";
+import UserProtectedWrapper from "./pages/UserProtectedWrapper";
 const App = () => {
   return (
     <div>
       <Routes>
-        <Route path='/'element={<Home/>} />
-        <Route path='/login'element={<Login/>}/>
-        <Route path='/signup'element={<Signup/>}/>
-        <Route path='/captain-login'element={<Captainlogin/>}/>
-        <Route path='/captain-signup'element={<CaptainSignup/>}/>
+        <Route path="/" element={<Start />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/captain-login" element={<Captainlogin />} />
+        <Route path="/captain-signup" element={<CaptainSignup />} />
+        <Route
+          path="/home"
+          element={
+            <UserProtectedWrapper>
+              <Home />
+            </UserProtectedWrapper>
+          }
+        />
       </Routes>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
