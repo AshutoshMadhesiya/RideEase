@@ -34,8 +34,6 @@ const CaptainSignup = () => {
       },
     };
 
-    console.log(newCaptain);
-
     const response = await axios.post(
       `${import.meta.env.VITE_BASE_URL}/captain/register`,
       newCaptain
