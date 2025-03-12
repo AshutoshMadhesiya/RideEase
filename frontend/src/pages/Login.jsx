@@ -13,10 +13,10 @@ const Login = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    setUserData({
+    const userData = {
       email: email,
       password: password,
-    });
+    };
 
     const response = await axios.post(
       `${import.meta.env.VITE_BASE_URL}/user/login`,
