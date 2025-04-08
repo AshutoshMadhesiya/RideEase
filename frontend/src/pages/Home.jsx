@@ -93,7 +93,7 @@ const Home = () => {
     <div className='h-screen relative overflow-hidden'>
       <img className='w-20 absolute left-5 top-5' src='https://logospng.org/download/uber/logo-uber-4096.png'></img>
       <div className='h-screen w-screen'>
-        <img className='h-full w-full  object-cover' src="https://media.gettyimages.com/id/1268054405/vector/route-planning-city-driving-road-network-destination-map.jpg?s=612x612&w=0&k=20&c=fFAXAL-udAnyNMc03hDYeVl3fg7LJyGu3XG-6xPi58o=" alt="" />
+        <img className='h-full w-full  object-cover' src="https://preview.redd.it/prayagraj-kumbh-mela-2025-v0-vk0hz9yhjbxd1.png?width=1342&format=png&auto=webp&s=d91ab21f5817b4a556356917166571f5ca6b8f0f" alt="" />
       </div>
       <div className=' flex flex-col justify-end h-screen absolute top-0 w-full '>
         <div className='h-[30%] p-5 bg-white relative'>
@@ -141,7 +141,7 @@ const Home = () => {
       <div ref={vehicleFoundRef} className='fixed w-full z-10 bottom-0 translate-y-full   bg-white px-3 py-10'>
       <LookingForDriver setVehicleFound={setVehicleFound}/>
        </div>
-      <div red={waitingForDriverRef} className='fixed w-full z-10 bottom-0 bg-white px-3 py-10'>
+      <div ref={waitingForDriverRef} className='fixed w-full z-10 bottom-0 bg-white px-3 py-10'>
       <WaitingForDriver waitingForDriver={waitingForDriver} />
        </div>
 

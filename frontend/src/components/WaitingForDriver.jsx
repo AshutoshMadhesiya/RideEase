@@ -4,7 +4,7 @@ const WaitingForDriver = (props) => {
   return (
     <div>
       <h5 className='p-3 text-center absolute top-0  w-[90%]' onClick={() => {
-        props.WaitingForDriver(false)
+        props.onClose(false)
       }}><i className="text-3xl text-gray-300 ri-arrow-down-wide-line"></i></h5>
       <div className='flex items-center justify-between'>
         <img className='h-16' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZ7Kt54z31PkbdlqmqnyWnaCjvcLYRG-T_8Q&s" alt="" />
