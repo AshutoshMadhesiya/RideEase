@@ -1,32 +1,35 @@
-import React from 'react'
+import React from "react";
 
-const LocationSearchPanel = (props) => {
-    console.log(props);
-    //sample array for location
-    const locations = ['Tandon Hostel,MNNIT Allahabad,UP 211004 ',
-        "Malviya Hostel,MNNIT Allahabad,UP 211004",
-        "Tilak Hostel,MNNIT Allahabad,UP 211004",
+const LocationSearchPanel = ({
+  suggestions,
+  setSuggestions,
+  setPickup,
+  setDestination,
+  activeField,
+}) => {
+  const handleSuggestionClick = async (value) => {
+    if (activeField === "pickup") {
+      setPickup(value);
+    } else if (activeField === "destination") {
+      setDestination(value);
+    }
+  };
 
-
-    ]
-    return (
-        <div>
-            {
-                locations.map(function (elem,idx) {
-                    return <div key={idx} onClick={() => {
-                        props.setVehiclePanel(true)
-                        props.setPanelOpen(false)
-                    }} className='flex  gap-4  border-2 border-white active:border-black  p-3 rounded-xl items-center justify-start my-4'>
-                        <h2 className='bg-[#eee] h-10 flex items-center justify-center w-15 rounded-full' ><i class="ri-map-pin-2-fill"></i></h2>
-                        <h4>{elem}</h4>
-                    </div>
-
-                })
-            }
-
-
+  return (
+    <div>
+      {suggestions.map((elem, idx) => (
+        <div
+          key={idx}
+          onClick={() => handleSuggestionClick(elem)}
+          className="flex gap-4 border-2 border-white active:border-black p-3 rounded-xl items-center justify-start my-4"
+        >
+          <h2 className="bg-[#eee] h-10 flex items-center justify-center w-15 rounded-full">
+            <i className="ri-map-pin-2-fill"></i>
+          </h2>
+          <h4>{elem}</h4>
         </div>
-    )
-}
-
-export default LocationSearchPanel
+      ))}
+    </div>
+  );
+};
+export default LocationSearchPanel;
