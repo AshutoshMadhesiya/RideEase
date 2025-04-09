@@ -29,7 +29,7 @@ const Home = () => {
   const [activeField, setActiveField] = useState(null);
   const [fare, setFare] = useState({});
 
-function createRide = async () => {
+  const createRide = async () => {
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_BASE_URL}/ride/create`,
