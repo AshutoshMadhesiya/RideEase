@@ -6,8 +6,6 @@ const LocationSearchPanel = ({
   setPickup,
   setDestination,
   activeField,
-  setPanelOpen,
-  setVehiclePanel,
 }) => {
   const handleSuggestionClick = async (value) => {
     if (activeField === "pickup") {
@@ -15,9 +13,6 @@ const LocationSearchPanel = ({
     } else if (activeField === "destination") {
       setDestination(value);
     }
-    setSuggestions([]);
-    setPanelOpen(false);
-    setVehiclePanel(true);
   };
 
   return (
