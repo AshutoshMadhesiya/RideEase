@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { UserDataContext } from "./../context/UserContext";
@@ -11,6 +11,13 @@ const Signup = () => {
 
   const navigate = useNavigate();
   const { user, setUser } = useContext(UserDataContext);
+
+  useEffect(() => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        navigate("/home");
+      }
+    }, [navigate]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -32,7 +39,6 @@ const Signup = () => {
       const data = response.data;
 
       localStorage.setItem("token", data.token);
-
       setUser(data.user);
 
       navigate("/home");

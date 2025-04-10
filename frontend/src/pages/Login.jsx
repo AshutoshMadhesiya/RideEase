@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { UserDataContext } from "./../context/UserContext";
@@ -8,8 +8,15 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [userData, setUserData] = useState({});
 
-  const { setUser } = useContext(UserDataContext);
+  const { user, setUser } = useContext(UserDataContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/home");
+    }
+  }, [navigate]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -26,6 +33,7 @@ const Login = () => {
     if (response.status === 200) {
       const data = response.data;
       localStorage.setItem("token", data.token);
+      setUser(data.user);
       navigate("/home");
     }
 

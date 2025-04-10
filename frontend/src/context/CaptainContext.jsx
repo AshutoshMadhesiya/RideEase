@@ -9,7 +9,7 @@ const CaptainContext = ({ children }) => {
       firstName: "",
       lastName: "",
     },
-    vehile: {
+    vehicle: {
       color: "",
       plate: "",
       capacity: "",

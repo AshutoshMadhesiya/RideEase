@@ -1,4 +1,5 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
+import { UserDataContext } from "../context/UserContext";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import "remixicon/fonts/remixicon.css";
@@ -10,6 +11,10 @@ import WaitingForDriver from "../components/WaitingForDriver";
 import axios from "axios";
 
 const Home = () => {
+  const { user } = useContext(UserDataContext); // Accessing user data from context
+
+
+
   const [pickup, setPickup] = useState("");
   const [destination, setDestination] = useState("");
   const [vehicleType, setVehicleType] = useState("");
@@ -44,11 +49,10 @@ const Home = () => {
           },
         }
       );
-      console.log(response.data);
     } catch (error) {
       console.error("Error creating ride:", error);
     }
-  }
+  };
 
   const handleSuggestionChange = async (value) => {
     if (value.length < 3) {
