@@ -70,3 +70,17 @@ module.exports.getSuggestions= async(input) =>{
         throw error;
     }
 }
+
+module.exports.getCaptainInTheRadius = async (ltd, lng, radius) => {
+
+    const captains = await Captain.find({
+        location: {
+            $geoWithin: {
+                $centerSphere: [[lng, ltd], radius / 3963.2] // radius in miles
+            }
+        },
+        status: 'active'
+    })
+
+    return captain
+}

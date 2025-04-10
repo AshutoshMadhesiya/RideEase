@@ -14,8 +14,9 @@ const CaptainContext = ({ children }) => {
       plate: "",
       capacity: "",
       vehicleType: "",
-    }
+    },
   });
+
 
   return (
     <CaptainDataContext.Provider value={{ captain, setCaptain }}>
