@@ -11,12 +11,14 @@ import { CaptainDataContext } from "../context/CaptainContext";
 import { useEffect } from "react";
 
 const CaptainHome = () => {
-  const [ridePopUpPanel, setRidePopUpPanel] = useState(true);
-  const [confirmRidePopUpPanel, setConfirmRidePopUpPanel] = useState(false);
 
-  const confirmRidePopUpPanelRef = useRef(null);
-  const ridePopUpPanelRef = useRef(null);
 
+  const [ridePopUpPanel, setRidePopUpPanel] = useState(true)
+  const [confirmRidePopUpPanel, setConfirmRidePopUpPanel] = useState(false)
+
+  const confirmRidePopUpPanelRef = useRef(null)
+  const ridePopUpPanelRef = useRef(null)
+  
   const { socket } = useContext(SocketContext);
   const { captain } = useContext(CaptainDataContext);
 
@@ -24,35 +26,34 @@ const CaptainHome = () => {
     socket.emit("join", { userType: "captain", userId: captain._id });
   }, [captain]);
 
-  useGSAP(
-    function () {
-      if (ridePopUpPanel) {
-        gsap.to(ridePopUpPanelRef.current, {
-          transform: "translateY(0)",
-        });
-      } else {
-        gsap.to(ridePopUpPanelRef.current, {
-          transform: "translateY(100%)",
-        });
-      }
-    },
-    [ridePopUpPanel]
-  );
 
-  useGSAP(
-    function () {
-      if (confirmRidePopUpPanel) {
-        gsap.to(confirmRidePopUpPanelRef.current, {
-          transform: "translateY(0)",
-        });
-      } else {
-        gsap.to(confirmRidePopUpPanelRef.current, {
-          transform: "translateY(100%)",
-        });
-      }
-    },
-    [confirmRidePopUpPanel]
-  );
+  useGSAP(function () {
+    if (ridePopUpPanel) {
+      gsap.to(ridePopUpPanelRef.current, {
+        transform: 'translateY(0)'
+      })
+    }
+    else {
+      gsap.to(ridePopUpPanelRef.current, {
+        transform: 'translateY(100%)'
+
+      })
+    }
+  }, [ridePopUpPanel])
+
+  useGSAP(function () {
+    if (confirmRidePopUpPanel) {
+      gsap.to(confirmRidePopUpPanelRef.current, {
+        transform: 'translateY(0)'
+      })
+    }
+    else {
+      gsap.to(confirmRidePopUpPanelRef.current, {
+        transform: 'translateY(100%)'
+
+      })
+    }
+
 
   return (
     <div className="h-screen w-screen flex flex-col  bg-[#F5F5F5]">
@@ -99,6 +100,7 @@ const CaptainHome = () => {
           setRidePopUpPanel={setRidePopUpPanel}
         />
       </div>
+
     </div>
   );
 };
