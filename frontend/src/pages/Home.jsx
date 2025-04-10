@@ -1,4 +1,5 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext, useEffect } from "react";
+import { UserDataContext } from "../context/UserContext";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import "remixicon/fonts/remixicon.css";
@@ -8,8 +9,10 @@ import ConfirmRide from "../components/ConfirmRide";
 import LookingForDriver from "../components/LookingForDriver";
 import WaitingForDriver from "../components/WaitingForDriver";
 import axios from "axios";
+import { SocketContext } from "../context/SocketContext";
 
 const Home = () => {
+  
   const [pickup, setPickup] = useState("");
   const [destination, setDestination] = useState("");
   const [vehicleType, setVehicleType] = useState("");
@@ -28,8 +31,16 @@ const Home = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [activeField, setActiveField] = useState(null);
   const [fare, setFare] = useState({});
+  const { socket } = useContext(SocketContext); 
+  const { user } = useContext(UserDataContext);
 
-function createRide = async () => {
+  useEffect(() => {
+
+    socket.emit("join", { userType: "user", userId: user._id });
+
+  },[user]);
+
+  const createRide = async () => {
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_BASE_URL}/ride/create`,
@@ -44,11 +55,10 @@ function createRide = async () => {
           },
         }
       );
-      console.log(response.data);
     } catch (error) {
       console.error("Error creating ride:", error);
     }
-  }
+  };
 
   const handleSuggestionChange = async (value) => {
     if (value.length < 3) {

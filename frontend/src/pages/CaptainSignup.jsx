@@ -41,7 +41,7 @@ const CaptainSignup = () => {
 
     if (response.status === 201) {
       const data = response.data;
-
+      setCaptain(data.captain);
       localStorage.setItem("token", data.token);
       setCaptain(data.captain);
 

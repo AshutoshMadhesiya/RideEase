@@ -9,13 +9,14 @@ const CaptainContext = ({ children }) => {
       firstName: "",
       lastName: "",
     },
-    vehile: {
+    vehicle: {
       color: "",
       plate: "",
       capacity: "",
       vehicleType: "",
-    }
+    },
   });
+
 
   return (
     <CaptainDataContext.Provider value={{ captain, setCaptain }}>
