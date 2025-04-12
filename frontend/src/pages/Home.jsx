@@ -40,6 +40,12 @@ const Home = () => {
 
   },[user]);
 
+  socket.on('ride-confirmed', ride=>{
+
+    setWaitingForDriver(true)
+    setVehiclePanel(false)
+  })
+
   const createRide = async () => {
     try {
       const response = await axios.post(

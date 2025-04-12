@@ -9,20 +9,64 @@ import { useContext } from "react";
 import { SocketContext } from "../context/SocketContext";
 import { CaptainDataContext } from "../context/CaptainContext";
 import { useEffect } from "react";
+import axios from "axios";
 
 const CaptainHome = () => {
-  const [ridePopUpPanel, setRidePopUpPanel] = useState(true);
+  const [ridePopUpPanel, setRidePopUpPanel] = useState(false);
   const [confirmRidePopUpPanel, setConfirmRidePopUpPanel] = useState(false);
 
   const confirmRidePopUpPanelRef = useRef(null);
   const ridePopUpPanelRef = useRef(null);
+  const [ride,setRide] = useState(null);
 
   const { socket } = useContext(SocketContext);
   const { captain } = useContext(CaptainDataContext);
 
   useEffect(() => {
     socket.emit("join", { userType: "captain", userId: captain._id });
+
+    const updateLocation = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          const { latitude, longitude } = position.coords;
+
+          // console.log("captain location", { userId: captain._id, location: { ltd: latitude, lng: longitude } });
+          socket.emit("update-location-captain", {
+            userId: captain._id,
+            location: { ltd: latitude, lng: longitude },
+          });
+        });
+      }
+    };
+    const interval = setInterval(updateLocation, 10000); // Update location every 10 seconds
+    updateLocation(); // Initial call to set the location immediately
+
   }, [captain]);
+
+
+  socket.on("new-ride", (data) => {
+    // console.log("new-ride", data);
+    setRide(data);
+    setRidePopUpPanel(true);
+  });
+
+  async function confirmRide() {
+
+    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/ride/confirm-ride`, {
+      rideId: ride._id,
+      captainId: captain._id
+    }, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+
+    // console.log("confirm-ride", response.data);
+
+    setConfirmRidePopUpPanel(true);
+    setRidePopUpPanel(false);
+  }
+
 
   useGSAP(
     function () {
@@ -86,8 +130,10 @@ const CaptainHome = () => {
         className="fixed w-full z-10 bottom-0  translate-y-full bg-white px-3 py-10"
       >
         <RidePopUp
+          ride={ride}
           setRidePopUpPanel={setRidePopUpPanel}
           setConfirmRidePopUpPanel={setConfirmRidePopUpPanel}
+          confirmRide={confirmRide}
         />
       </div>
       <div

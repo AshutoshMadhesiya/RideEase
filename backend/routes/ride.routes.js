@@ -18,4 +18,9 @@ router.get('/getFare', authMiddleware.authUser,
     rideController.getFare
 );
 
+router.post('/confirm-ride', authMiddleware.authCaptain,
+    body('rideId').isMongoId().withMessage('Ride ID is required and must be a valid MongoDB ObjectId'),
+    rideController.confirmRide
+)
+
 module.exports = router;
