@@ -17,7 +17,6 @@ const CaptainHome = () => {
 
   const confirmRidePopUpPanelRef = useRef(null);
   const ridePopUpPanelRef = useRef(null);
-  const [ride,setRide] = useState(null);
 
   const { socket } = useContext(SocketContext);
   const { captain } = useContext(CaptainDataContext);
@@ -68,35 +67,34 @@ const CaptainHome = () => {
   }
 
 
-  useGSAP(
-    function () {
-      if (ridePopUpPanel) {
-        gsap.to(ridePopUpPanelRef.current, {
-          transform: "translateY(0)",
-        });
-      } else {
-        gsap.to(ridePopUpPanelRef.current, {
-          transform: "translateY(100%)",
-        });
-      }
-    },
-    [ridePopUpPanel]
-  );
 
-  useGSAP(
-    function () {
-      if (confirmRidePopUpPanel) {
-        gsap.to(confirmRidePopUpPanelRef.current, {
-          transform: "translateY(0)",
-        });
-      } else {
-        gsap.to(confirmRidePopUpPanelRef.current, {
-          transform: "translateY(100%)",
-        });
-      }
-    },
-    [confirmRidePopUpPanel]
-  );
+  useGSAP(function () {
+    if (ridePopUpPanel) {
+      gsap.to(ridePopUpPanelRef.current, {
+        transform: 'translateY(0)'
+      })
+    }
+    else {
+      gsap.to(ridePopUpPanelRef.current, {
+        transform: 'translateY(100%)'
+
+      })
+    }
+  }, [ridePopUpPanel])
+
+  useGSAP(function () {
+    if (confirmRidePopUpPanel) {
+      gsap.to(confirmRidePopUpPanelRef.current, {
+        transform: 'translateY(0)'
+      })
+    }
+    else {
+      gsap.to(confirmRidePopUpPanelRef.current, {
+        transform: 'translateY(100%)'
+
+      })
+    }
+
 
   return (
     <div className="h-screen w-screen flex flex-col  bg-[#F5F5F5]">
@@ -145,6 +143,7 @@ const CaptainHome = () => {
           setRidePopUpPanel={setRidePopUpPanel}
         />
       </div>
+
     </div>
   );
 };
