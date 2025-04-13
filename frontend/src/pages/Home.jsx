@@ -53,7 +53,8 @@ const Home = () => {
 
   socket.on('ride-started', ride=>{
     setWaitingForDriver(false)
-    navigate('/riding')
+    navigate('/riding', {state: {ride: ride}})
+    
   })
 
   const createRide = async () => {
@@ -310,8 +311,6 @@ const Home = () => {
       >
         <WaitingForDriver 
         ride={ride}
-
-        
         waitingForDriver={waitingForDriver} />
       </div>
     </div>
