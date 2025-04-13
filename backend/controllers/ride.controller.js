@@ -77,7 +77,7 @@ module.exports.confirmRide = async (req, res) => {
   try {
     const ride = await rideService.confirmRide({ rideId, captain: req.captain });
     // Populate the user field so that socketId is available
-    const rideWithUser = await rideModel.findById(ride._id).populate("user");
+    const rideWithUser = await rideModel.findById(ride._id).populate("user").populate("captain").select("+otp");
 
     // console.log("Ride confirmed", rideWithUser);
 
@@ -87,3 +87,19 @@ module.exports.confirmRide = async (req, res) => {
     return res.status(500).json({ error: error.message });
   }
 };
+
+
+module.exports.startRide = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+  const { rideId, otp } = req.query;
+  try {
+    const ride = await rideService.startRide({ rideId, otp, captain: req.captain });
+    sendMessageToSocketId(ride.user.socketId, "ride-started", ride);
+    return res.status(200).json(ride);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+}
