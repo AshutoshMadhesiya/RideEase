@@ -11,6 +11,7 @@ import WaitingForDriver from "../components/WaitingForDriver";
 import axios from "axios";
 import { SocketContext } from "../context/SocketContext";
 import { useNavigate } from "react-router-dom";
+import LiveTracking from "../components/LiveTracking";
 
 const Home = () => {
   
@@ -196,14 +197,11 @@ const Home = () => {
         className="w-20 absolute left-5 top-5"
         src="https://logospng.org/download/uber/logo-uber-4096.png"
       ></img>
-      <div className="h-screen w-screen">
-        <img
-          className="h-full w-full  object-cover"
-          src="https://preview.redd.it/prayagraj-kumbh-mela-2025-v0-vk0hz9yhjbxd1.png?width=1342&format=png&auto=webp&s=d91ab21f5817b4a556356917166571f5ca6b8f0f"
-          alt=""
-        />
+      
+      <div className=" flex flex-col justify-end h-screen absolute top-0 w-full">
+        <div className="h-screen w-screen">
+         <LiveTracking /> 
       </div>
-      <div className=" flex flex-col justify-end h-screen absolute top-0 w-full ">
         <div className="h-[30%] p-5 bg-white relative">
           <h5
             ref={panelCloseRef}

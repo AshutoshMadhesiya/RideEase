@@ -8,6 +8,7 @@ import { useGSAP } from "@gsap/react";
 import { SocketContext } from "../context/SocketContext";
 import { CaptainDataContext } from "../context/CaptainContext";
 import axios from "axios";
+import LiveTracking from "../components/LiveTracking";
 
 const CaptainHome = () => {
   const [ridePopUpPanel, setRidePopUpPanel] = useState(false);
@@ -119,11 +120,7 @@ const CaptainHome = () => {
       </div>
 
       <div className="h-3/5 flex justify-center items-center">
-        <img
-          className="h-full w-full object-cover"
-          src="https://preview.redd.it/prayagraj-kumbh-mela-2025-v0-vk0hz9yhjbxd1.png?width=1342&format=png&auto=webp&s=d91ab21f5817b4a556356917166571f5ca6b8f0f"
-          alt="kumbh"
-        />
+      <LiveTracking />
       </div>
 
       <div className="h-2/5 p-6">
