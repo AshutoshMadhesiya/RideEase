@@ -1,5 +1,6 @@
 const axios = require('axios');
 const dotenv = require('dotenv');
+const captianModel = require('../models/captain.model');
 dotenv.config();
 
 module.exports.getAddressCoordinate = async (address) => {
@@ -71,16 +72,18 @@ module.exports.getSuggestions= async(input) =>{
     }
 }
 
-module.exports.getCaptainInTheRadius = async (ltd, lng, radius) => {
 
-    const captains = await Captain.find({
+module.exports.getCaptainInTheRadius = async (ltd, lng, radius) => {
+    const center = [ltd, lng]; 
+    const radiusInRadians = radius / 6378.1;
+    // console.log("Geo Query Center:", center, "Radius (radians):", radiusInRadians);
+    
+    const captains = await captianModel.find({
         location: {
             $geoWithin: {
-                $centerSphere: [[lng, ltd], radius / 3963.2] // radius in miles
+                $centerSphere: [center, radiusInRadians]
             }
-        },
-        status: 'active'
-    })
-
-    return captain
+        }
+    });
+    return captains;
 }

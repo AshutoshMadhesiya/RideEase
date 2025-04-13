@@ -18,4 +18,15 @@ router.get('/getFare', authMiddleware.authUser,
     rideController.getFare
 );
 
+router.post('/confirm-ride', authMiddleware.authCaptain,
+    body('rideId').isMongoId().withMessage('Ride ID is required and must be a valid MongoDB ObjectId'),
+    rideController.confirmRide
+)
+
+router.get('/start-ride', authMiddleware.authCaptain,
+    query('rideId').isMongoId().withMessage('Ride ID is required and must be a valid MongoDB ObjectId'),
+    query('otp').isString().isLength({ min: 6, max: 6 }).withMessage('OTP is required and must be 6 digits long'),
+    rideController.startRide
+)
+
 module.exports = router;

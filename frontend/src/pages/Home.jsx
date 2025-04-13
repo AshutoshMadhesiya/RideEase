@@ -10,6 +10,7 @@ import LookingForDriver from "../components/LookingForDriver";
 import WaitingForDriver from "../components/WaitingForDriver";
 import axios from "axios";
 import { SocketContext } from "../context/SocketContext";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   
@@ -33,12 +34,27 @@ const Home = () => {
   const [fare, setFare] = useState({});
   const { socket } = useContext(SocketContext); 
   const { user } = useContext(UserDataContext);
+  const [ride, setRide] = useState(null); // ✅ ADDED
+  const navigate = useNavigate(); // ✅ ADDED
 
   useEffect(() => {
 
     socket.emit("join", { userType: "user", userId: user._id });
 
   },[user]);
+
+  socket.on('ride-confirmed', ride=>{
+
+    setWaitingForDriver(true)
+    setVehicleFound(false)
+    setRide(ride)
+    // console.log("🚗 ride-confirmed received", ride);
+  })
+
+  socket.on('ride-started', ride=>{
+    setWaitingForDriver(false)
+    navigate('/riding')
+  })
 
   const createRide = async () => {
     try {
@@ -292,7 +308,11 @@ const Home = () => {
         ref={waitingForDriverRef}
         className="fixed w-full z-10 bottom-0 bg-white px-3 py-10"
       >
-        <WaitingForDriver waitingForDriver={waitingForDriver} />
+        <WaitingForDriver 
+        ride={ride}
+
+        
+        waitingForDriver={waitingForDriver} />
       </div>
     </div>
   );
