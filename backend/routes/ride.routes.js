@@ -29,4 +29,9 @@ router.get('/start-ride', authMiddleware.authCaptain,
     rideController.startRide
 )
 
+router.post('/end-ride', authMiddleware.authCaptain,
+    body('rideId').isMongoId().withMessage('Ride ID is required and must be a valid MongoDB ObjectId'),
+    rideController.endRide
+)
+
 module.exports = router;

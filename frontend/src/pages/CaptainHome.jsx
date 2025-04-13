@@ -12,8 +12,8 @@ import axios from "axios";
 const CaptainHome = () => {
   const [ridePopUpPanel, setRidePopUpPanel] = useState(false);
   const [confirmRidePopUpPanel, setConfirmRidePopUpPanel] = useState(false);
-  const [ride, setRide] = useState(null); // ✅ ADDED
-  const [waitingForDriver, setWaitingForDriver] = useState(false); // optional
+  const [ride, setRide] = useState(null);
+  const [waitingForDriver, setWaitingForDriver] = useState(false);
 
   const ridePopUpPanelRef = useRef(null);
   const confirmRidePopUpPanelRef = useRef(null);
@@ -26,7 +26,6 @@ const CaptainHome = () => {
 
     socket.emit("join", { userType: "captain", userId: captain._id });
 
-    // Update location every 10 seconds
     const updateLocation = () => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
@@ -68,7 +67,7 @@ const CaptainHome = () => {
         `${import.meta.env.VITE_BASE_URL}/ride/confirm-ride`,
         {
           rideId: ride._id,
-          captainId: captain._id
+          captainId: captain._id,
         },
         {
           headers: {
@@ -81,7 +80,10 @@ const CaptainHome = () => {
       setConfirmRidePopUpPanel(true);
       setRidePopUpPanel(false);
     } catch (error) {
-      console.error("❌ Error confirming ride:", error.response?.data || error.message);
+      console.error(
+        "❌ Error confirming ride:",
+        error.response?.data || error.message
+      );
     }
   }
 
@@ -106,7 +108,10 @@ const CaptainHome = () => {
           alt="logo"
         />
         <Link
-          to="/home"
+          to={{
+            pathname: "/captain-riding",
+            state: { ride }, // Pass ride data
+          }}
           className=" h-10 w-10 bg-white flex items-center justify-center rounded-full"
         >
           <i className="text-lg font-medium ri-logout-box-r-line"></i>
