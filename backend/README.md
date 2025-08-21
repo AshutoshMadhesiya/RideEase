@@ -1,4 +1,4 @@
-# UBER Clone Backend API Documentation
+# Backend API Documentation
 
 ## Endpoints
 

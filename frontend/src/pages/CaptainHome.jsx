@@ -9,6 +9,7 @@ import { SocketContext } from "../context/SocketContext";
 import { CaptainDataContext } from "../context/CaptainContext";
 import axios from "axios";
 import LiveTracking from "../components/LiveTracking";
+import pic from "../assets/RideEaseCaptain.png"; // Logo
 
 const CaptainHome = () => {
   const [ridePopUpPanel, setRidePopUpPanel] = useState(false);
@@ -105,7 +106,7 @@ const CaptainHome = () => {
       <div className="fixed p-3 top-0 flex items-center justify-between w-screen">
         <img
           className="w-16"
-          src="https://logospng.org/download/uber/logo-uber-4096.png"
+          src={pic}
           alt="logo"
         />
         <Link

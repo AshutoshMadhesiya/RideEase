@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { UserDataContext } from "./../context/UserContext";
+import pic from "../assets/RideEaseUser.png"; // Import the user image
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -53,8 +54,8 @@ const Signup = () => {
       <div className="p-7 h-screen flex flex-col justify-between max-w-md mx-auto bg-gray-50">
         <div>
           <img
-            className="w-16 mb-10"
-            src="https://download.logo.wine/logo/Uber/Uber-Logo.wine.png"
+            className="w-24 mb-10 relative z-10"
+            src={pic}
           />
           <form
             onSubmit={(e) => {

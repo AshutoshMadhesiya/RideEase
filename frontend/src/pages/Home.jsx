@@ -12,7 +12,8 @@ import axios from "axios";
 import { SocketContext } from "../context/SocketContext";
 import { useNavigate } from "react-router-dom";
 import LiveTracking from "../components/LiveTracking";
-import Navbar from "../components/Navbar";
+import pic from "../assets/RideEaseUser.png"; // Logo
+
 
 const Home = () => {
   
@@ -196,7 +197,7 @@ const Home = () => {
     <div className="h-screen relative overflow-hidden">
       <img
         className="w-20 absolute left-5 top-5"
-        src="https://logospng.org/download/uber/logo-uber-4096.png"
+        src={pic}
       ></img>
       
       <div className=" flex flex-col justify-end h-screen absolute top-0 w-full">

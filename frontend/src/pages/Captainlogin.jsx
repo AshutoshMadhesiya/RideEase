@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { CaptainDataContext } from "../context/CaptainContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import pic from "../assets/RideEaseCaptain.png";
 
 const Captainlogin = () => {
   const [email, setEmail] = useState("");
@@ -39,8 +40,8 @@ const Captainlogin = () => {
     <div className="p-7 h-screen flex flex-col justify-between max-w-md mx-auto bg-gray-50">
       <div>
         <img
-          className="w-16 mb-10"
-          src="https://www.svgrepo.com/show/505031/uber-driver.svg"
+          className="w-32 mb-10 relative z-10"
+          src={pic}
         />
         <form onSubmit={(e) => submitHandler(e)}>
           <h3 className="text-lg font-medium mb-2">What's captain email</h3>
