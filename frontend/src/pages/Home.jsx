@@ -12,6 +12,7 @@ import axios from "axios";
 import { SocketContext } from "../context/SocketContext";
 import { useNavigate } from "react-router-dom";
 import LiveTracking from "../components/LiveTracking";
+import Navbar from "../components/Navbar";
 
 const Home = () => {
   
@@ -35,8 +36,8 @@ const Home = () => {
   const [fare, setFare] = useState({});
   const { socket } = useContext(SocketContext); 
   const { user } = useContext(UserDataContext);
-  const [ride, setRide] = useState(null); // ✅ ADDED
-  const navigate = useNavigate(); // ✅ ADDED
+  const [ride, setRide] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
 

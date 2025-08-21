@@ -27,6 +27,11 @@ const userSchema = new mongoose.Schema({
   },
   socketId:{
     type:String,
+  },
+  phoneNumber:{
+    type:String,
+    unique:true,
+    minlength:[10,'Phone number must be at least 10 characters long'],
   }
 });
 

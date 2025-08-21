@@ -10,6 +10,7 @@ const UserProtectedWrapper = ({ children }) => {
   const { user, setUser } = useContext(UserDataContext);
   const [isLoading, setIsLoading] = useState(true);
 
+
   useEffect(() => {
     if (!token) {
       navigate("/login");
