@@ -103,11 +103,11 @@ const CaptainHome = () => {
 
   return (
     <div className="h-screen w-screen flex flex-col bg-[#F5F5F5] pt-16">
-      <div className="h-3/5 flex justify-center items-center">
+      <div className="h-2/3 flex justify-center items-center">
         <LiveTracking />
       </div>
 
-      <div className="h-2/5 p-6">
+      <div className="h-1/3 p-6">
         <CaptainDetails />
       </div>
 
