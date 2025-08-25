@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.get('/', (req, res) => {
-  res.send("Hello world");
+  res.send("Backend is running...");
 });
 
 app.use('/user', userRoutes);
