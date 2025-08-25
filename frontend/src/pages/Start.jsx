@@ -7,15 +7,8 @@ const Start = () => {
   return (
     <div
       className="bg-cover bg-center h-screen flex flex-col justify-between w-full relative"
-      style={{ backgroundImage: `url(${startImg})` }}
+      style={{ backgroundImage: "https://images.unsplash.com/photo-1756147670436-6583f9a2d55c?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MXx8fGVufDB8fHx8fA%3D%3D"}}
     >
-      {/* Background Watermark Logo */}
-      <img
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-15 w-[500px] md:w-[700px] pointer-events-none select-none"
-        src={logo}
-        alt="RideEase Watermark Logo"
-      />
-
       {/* Top Left Logo (crisp, inside badge) */}
       <div className="mt-5 ml-8 z-20">
         <img
