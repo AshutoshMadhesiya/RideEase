@@ -40,12 +40,53 @@ const Profile = () => {
     setIsEditing(!isEditing);
   };
 
-  const handleSave = () => {
-    setUser(formData);
-    setIsEditing(false);
+  const handleSave = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        navigate("/login");
+        return;
+      }
+
+      // Create a payload and don't send an empty password
+      const payload = {
+        fullname: formData.fullname,
+        email: formData.email,
+        phoneNumber: formData.phoneNumber,
+      };
+
+      if (formData.password && formData.password.trim() !== "") {
+        payload.password = formData.password;
+      }
+
+      const response = await axios.put(
+        `${import.meta.env.VITE_BASE_URL}/user/profile`,
+        payload,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        setUser(response.data);
+        setIsEditing(false);
+        alert(
+          "Profile updated successfully! If you changed your credentials, please use them for your next login."
+        );
+      }
+    } catch (error) {
+      console.error("Failed to update profile:", error);
+      alert(
+        error.response?.data?.message ||
+          "Failed to update profile. Please try again."
+      );
+    }
   };
 
   const handleCancel = () => {
+    setFormData(user); // Reset form data to original state
     setIsEditing(false);
   };
 
@@ -112,9 +153,9 @@ const Profile = () => {
             <div>
               <label className="font-semibold block text-sm">Phone:</label>
               <input
-                name="phone"
+                name="phoneNumber"
                 type="text"
-                value={formData.phone || ""}
+                value={formData.phoneNumber || ""}
                 onChange={handleInputChange}
                 className="w-full border px-2 py-1 rounded mt-1"
               />
@@ -148,7 +189,7 @@ const Profile = () => {
 
             <div className="mb-10">
               <p className="font-semibold mb-3">Phone:</p>
-              <p>{user.phone || "NA"}</p>
+              <p>{user.phoneNumber || "NA"}</p>
             </div>
           </div>
         )}
