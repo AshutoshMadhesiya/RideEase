@@ -50,7 +50,7 @@ async function getFare(pickup, destination) {
     ),
   };
 
-  return fare;
+  return {fare,distance:distanceInKm};
 }
 
 module.exports.getFare = getFare;
@@ -67,7 +67,7 @@ module.exports.createRide = async (user, pickup, destination, vehicleType) => {
     throw new Error("User, pickup, destination and vehicle type are required");
   }
 
-  const fare = await getFare(pickup, destination);
+  const { fare, distance } = await getFare(pickup, destination);
 
   const ride = {
     user,
@@ -75,6 +75,7 @@ module.exports.createRide = async (user, pickup, destination, vehicleType) => {
     destination,
     otp: getOtp(6),
     fare: fare[vehicleType],
+    distance: distance,
   };
 
   const createdRide = await rideModel.create(ride);

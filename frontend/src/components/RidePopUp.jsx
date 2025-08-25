@@ -14,12 +14,11 @@ const RidePopUp = (props) => {
             <h3 className='text-2xl font-semibold mb-5 '>New Ride Available </h3>
             <div className='flex items-center justify-between p-2 bg-yellow-400 rounded-lg mt-4'>
                 <div className='flex items-center gap-3'>
-                    <img className='h-10 rounded-full object-cover w-10' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaUwPXBnAA_V1yjyVNE1wVDW6f-XbgOZTDBQ&s" alt="" />
-                    <h2 className='text-xl font-medium'>
+                    <h2 className='text-xl font-medium p-3'>
                       {props.ride.user?.fullname.firstname + " " + props.ride.user?.fullname.lastname}
                     </h2>
                 </div>
-                <h5 className='text-xl font-semibold '>2.2km</h5>
+                <h5 className='text-xl font-semibold p-3'>{props.ride?.distance + " km"}</h5>
             </div>
             <div className='flex gap-2 justify-between flex-col items-center'>
                 <div className='w-full mt-5'>

@@ -57,7 +57,7 @@ const CaptainRiding = () => {
           ></i>
         </h5>
         <h4 className="text-lg font-semibold">
-          {ride?.distance || "N/A"} KM away
+          {ride?.distance || "N/A"} km distance
         </h4>{" "}
         {/* Use ride data */}
         <button className="text-xl font-semibold bg-green-600 text-white rounded-lg p-1">

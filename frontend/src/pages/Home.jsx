@@ -36,6 +36,7 @@ const Home = () => {
   const { socket } = useContext(SocketContext);
   const { user } = useContext(UserDataContext);
   const [ride, setRide] = useState(null);
+  const [distance, setDistance] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -110,7 +111,8 @@ const Home = () => {
         },
       }
     );
-    setFare(response.data);
+    setFare(response.data.fare);
+    setDistance(response.data.distance);
   };
 
   const submitHandler = (e) => {
@@ -264,6 +266,7 @@ const Home = () => {
         <VehiclePanel
           setVehicleType={setVehicleType}
           fare={fare}
+          distance={distance}
           setConfirmRidePanel={setConfirmRidePanel}
           setVehiclePanel={setVehiclePanel}
         />
@@ -277,6 +280,7 @@ const Home = () => {
           pickup={pickup}
           destination={destination}
           fare={fare}
+          distance={distance}
           createRide={createRide}
           setConfirmRidePanel={setConfirmRidePanel}
           setVehicleFound={setVehicleFound}
@@ -291,6 +295,7 @@ const Home = () => {
           pickup={pickup}
           destination={destination}
           fare={fare}
+          distance={distance}
           setVehicleFound={setVehicleFound}
         />
       </div>
@@ -298,7 +303,7 @@ const Home = () => {
         ref={waitingForDriverRef}
         className="fixed w-full z-10 bottom-0 bg-white px-3 py-10"
       >
-        <WaitingForDriver ride={ride} waitingForDriver={waitingForDriver} />
+        <WaitingForDriver ride={ride} distance={distance} waitingForDriver={waitingForDriver} />
       </div>
     </div>
   );
