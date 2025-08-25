@@ -12,6 +12,7 @@ const CaptainProfile = () => {
       setFormData({
         fullname: { ...captain.fullname },
         email: captain.email,
+        phoneNumber: captain.phoneNumber,
         vehicle: { ...captain.vehicle },
       });
     }
@@ -36,9 +37,13 @@ const CaptainProfile = () => {
   const handleSave = async () => {
     try {
       const token = localStorage.getItem("token");
+      const payload = { ...formData };
+      if (!payload.password || payload.password.trim() === "") {
+        delete payload.password;
+      }
       const response = await axios.put(
         `${import.meta.env.VITE_BASE_URL}/captain/profile`,
-        formData,
+        payload,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -57,35 +62,51 @@ const CaptainProfile = () => {
   }
 
   return (
-    <div className="p-7 max-w-md mx-auto bg-gray-50">
+    <div className="pt-20 p-7 max-w-md mx-auto bg-gray-50">
       <h2 className="text-2xl font-bold mb-6">Captain Profile</h2>
       <div className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            First Name
-          </label>
-          <input
-            type="text"
-            name="fullname.firstname"
-            value={formData.fullname?.firstname || ""}
-            onChange={handleInputChange}
-            readOnly={!isEditing}
-            className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Last Name
-          </label>
-          <input
-            type="text"
-            name="fullname.lastname"
-            value={formData.fullname?.lastname || ""}
-            onChange={handleInputChange}
-            readOnly={!isEditing}
-            className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          />
-        </div>
+        {isEditing ? (
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                First Name
+              </label>
+              <input
+                type="text"
+                name="fullname.firstname"
+                value={formData.fullname?.firstname || ""}
+                onChange={handleInputChange}
+                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Last Name
+              </label>
+              <input
+                type="text"
+                name="fullname.lastname"
+                value={formData.fullname?.lastname || ""}
+                onChange={handleInputChange}
+                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              />
+            </div>
+          </div>
+        ) : (
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Full Name
+            </label>
+            <input
+              type="text"
+              value={`${captain.fullname?.firstname || ""} ${
+                captain.fullname?.lastname || ""
+              }`}
+              readOnly
+              className="mt-1 block w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-md shadow-sm sm:text-sm"
+            />
+          </div>
+        )}
         <div>
           <label className="block text-sm font-medium text-gray-700">
             Email
@@ -99,58 +120,87 @@ const CaptainProfile = () => {
             className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
         </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            Phone Number
+          </label>
+          <input
+            type="text"
+            name="phoneNumber"
+            value={formData.phoneNumber || ""}
+            onChange={handleInputChange}
+            readOnly={!isEditing}
+            className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          />
+        </div>
+        {isEditing && (
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              New Password (leave blank to keep current password)
+            </label>
+            <input
+              type="password"
+              name="password"
+              value={formData.password || ""}
+              onChange={handleInputChange}
+              className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+          </div>
+        )}
         <h3 className="text-xl font-bold pt-4">Vehicle Details</h3>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Color
-          </label>
-          <input
-            type="text"
-            name="vehicle.color"
-            value={formData.vehicle?.color || ""}
-            onChange={handleInputChange}
-            readOnly={!isEditing}
-            className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Plate Number
-          </label>
-          <input
-            type="text"
-            name="vehicle.plate"
-            value={formData.vehicle?.plate || ""}
-            onChange={handleInputChange}
-            readOnly={!isEditing}
-            className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Capacity
-          </label>
-          <input
-            type="number"
-            name="vehicle.capacity"
-            value={formData.vehicle?.capacity || ""}
-            onChange={handleInputChange}
-            readOnly={!isEditing}
-            className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Vehicle Type
-          </label>
-          <input
-            type="text"
-            name="vehicle.vehicleType"
-            value={formData.vehicle?.vehicleType || ""}
-            onChange={handleInputChange}
-            readOnly
-            className="mt-1 block w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-md shadow-sm sm:text-sm"
-          />
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Color
+            </label>
+            <input
+              type="text"
+              name="vehicle.color"
+              value={formData.vehicle?.color || ""}
+              onChange={handleInputChange}
+              readOnly={!isEditing}
+              className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Plate Number
+            </label>
+            <input
+              type="text"
+              name="vehicle.plate"
+              value={formData.vehicle?.plate || ""}
+              onChange={handleInputChange}
+              readOnly={!isEditing}
+              className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Capacity
+            </label>
+            <input
+              type="number"
+              name="vehicle.capacity"
+              value={formData.vehicle?.capacity || ""}
+              onChange={handleInputChange}
+              readOnly={!isEditing}
+              className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Vehicle Type
+            </label>
+            <input
+              type="text"
+              name="vehicle.vehicleType"
+              value={formData.vehicle?.vehicleType || ""}
+              onChange={handleInputChange}
+              readOnly
+              className="mt-1 block w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-md shadow-sm sm:text-sm"
+            />
+          </div>
         </div>
       </div>
       <div className="mt-6">

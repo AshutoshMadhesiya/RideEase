@@ -14,6 +14,10 @@ router.post(
       .isLength({ min: 3 })
       .withMessage("Last name must be at least 3 characters"),
     body("email").isEmail().withMessage("Please fill a valid email address"),
+    body("phoneNumber")
+      .optional()
+      .isMobilePhone()
+      .withMessage("Please provide a valid phone number"),
     body("password")
       .isLength({ min: 6 })
       .withMessage("Password must be at least 6 characters"),

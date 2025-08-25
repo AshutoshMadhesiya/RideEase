@@ -35,18 +35,22 @@ const CaptainSignup = () => {
       },
     };
 
-    const response = await axios.post(
-      `${import.meta.env.VITE_BASE_URL}/captain/register`,
-      newCaptain
-    );
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BASE_URL}/captain/register`,
+        newCaptain
+      );
 
-    if (response.status === 201) {
-      const data = response.data;
-      setCaptain(data.captain);
-      localStorage.setItem("token", data.token);
-      setCaptain(data.captain);
+      if (response.status === 201) {
+        const data = response.data;
+        setCaptain(data.captain);
+        localStorage.setItem("token", data.token);
+        setCaptain(data.captain);
 
-      navigate("/captain-home");
+        navigate("/captain-home");
+      }
+    } catch (error) {
+      console.error("Signup failed:", error.response?.data || error.message);
     }
 
     setEmail("");
@@ -62,10 +66,7 @@ const CaptainSignup = () => {
     <div>
       <div className="p-7 h-screen flex flex-col justify-between max-w-md mx-auto bg-gray-50">
         <div>
-          <img
-            className="w-32 mb-10 relative z-10"
-            src={pic}
-          />
+          <img className="w-32 mb-10 relative z-10" src={pic} />
           <form
             onSubmit={(e) => {
               submitHandler(e);
@@ -162,7 +163,7 @@ const CaptainSignup = () => {
                 <option value="" disabled>
                   Vehicle Type
                 </option>
-                <option value="moto">Motorcycle</option>
+                <option value="motorcycle">Motorcycle</option>
                 <option value="car">Car</option>
                 <option value="auto">Auto</option>
               </select>

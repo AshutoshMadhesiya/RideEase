@@ -21,6 +21,9 @@ const captianSchema = new mongoose.Schema({
     lowercase: true,
     match: [/.+\@.+\..+/, "Please fill a valid email address"],
   },
+  phoneNumber: {
+    type: String,
+  },
   password: {
     type: String,
     required: true,
@@ -68,7 +71,9 @@ const captianSchema = new mongoose.Schema({
 });
 
 captianSchema.methods.generateAuthToken = function () {
-  const token = jwt.sign({ _id: this._id},process.env.JWT_SECRET, {expiresIn: '24h'});
+  const token = jwt.sign({ _id: this._id }, process.env.JWT_SECRET, {
+    expiresIn: "24h",
+  });
   return token;
 };
 
@@ -81,6 +86,5 @@ captianSchema.statics.hashPassword = async function (password) {
 };
 
 const captianModel = mongoose.model("captain", captianSchema);
-
 
 module.exports = captianModel;

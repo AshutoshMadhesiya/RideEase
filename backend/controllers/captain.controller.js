@@ -9,7 +9,7 @@ module.exports.registerCaptain = async (req, res, next) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { fullname, email, password, vehicle } = req.body;
+  const { fullname, email, password, vehicle, phoneNumber } = req.body;
   const isCaptainAlreadyExist = await captainModel.findOne({ email });
 
   if (isCaptainAlreadyExist) {
@@ -23,6 +23,7 @@ module.exports.registerCaptain = async (req, res, next) => {
     lastname: fullname.lastname,
     email,
     password: hashedPassword,
+    phoneNumber,
     color: vehicle.color,
     plate: vehicle.plate,
     capacity: vehicle.capacity,
@@ -70,6 +71,16 @@ module.exports.updateCaptainProfile = async (req, res, next) => {
   const updateData = req.body;
 
   try {
+    if (updateData.password) {
+      if (updateData.password.trim() !== "") {
+        updateData.password = await captainModel.hashPassword(
+          updateData.password
+        );
+      } else {
+        delete updateData.password; // Don't update with an empty password
+      }
+    }
+
     const updatedCaptain = await captainModel.findByIdAndUpdate(
       captainId,
       updateData,

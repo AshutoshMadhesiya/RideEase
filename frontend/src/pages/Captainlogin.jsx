@@ -9,7 +9,7 @@ const Captainlogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const {captain, setCaptain } = useContext(CaptainDataContext);
+  const { captain, setCaptain } = useContext(CaptainDataContext);
   const navigate = useNavigate();
 
   const submitHandler = async (e) => {
@@ -39,10 +39,7 @@ const Captainlogin = () => {
   return (
     <div className="p-7 h-screen flex flex-col justify-between max-w-md mx-auto bg-gray-50">
       <div>
-        <img
-          className="w-32 mb-10 relative z-10"
-          src={pic}
-        />
+        <img className="w-32 mb-10 relative z-10" src={pic} />
         <form onSubmit={(e) => submitHandler(e)}>
           <h3 className="text-lg font-medium mb-2">What's captain email</h3>
           <input
