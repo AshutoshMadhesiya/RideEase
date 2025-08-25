@@ -14,6 +14,7 @@ const Login = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+  
     if (token) {
       navigate("/home");
     }
@@ -34,6 +35,7 @@ const Login = () => {
     if (response.status === 200) {
       const data = response.data;
       localStorage.setItem("token", data.token);
+      localStorage.setItem("role", "user");
       setUser(data.user);
       navigate("/home");
     }

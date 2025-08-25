@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState,useEffect } from "react";
 import { Link } from "react-router-dom";
 import { CaptainDataContext } from "../context/CaptainContext";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +11,14 @@ const Captainlogin = () => {
 
   const { captain, setCaptain } = useContext(CaptainDataContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+      const token = localStorage.getItem("token");
+    
+      if (token) {
+        navigate("/captain-home");
+      }
+    }, [navigate]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -29,6 +37,7 @@ const Captainlogin = () => {
       const data = response.data;
       setCaptain(data.captain);
       localStorage.setItem("token", data.token);
+      localStorage.setItem("role", "captain");
       navigate("/captain-home");
     }
 

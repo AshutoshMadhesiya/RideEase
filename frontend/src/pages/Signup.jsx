@@ -40,6 +40,7 @@ const Signup = () => {
       const data = response.data;
 
       localStorage.setItem("token", data.token);
+      localStorage.setItem("role", "user");
       setUser(data.user);
 
       navigate("/home");
