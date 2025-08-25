@@ -1,13 +1,16 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import startImg from '../assets/start_img.jpg'; // Background image
-import logo from '../assets/RideEaseLogo.png'; // Logo
+import React from "react";
+import { Link } from "react-router-dom";
+import startImg from "../assets/start_img.jpg"; // Background image
+import logo from "../assets/RideEaseLogo.png"; // Logo
 
 const Start = () => {
   return (
     <div
       className="bg-cover bg-center h-screen flex flex-col justify-between w-full relative"
-      style={{ backgroundImage: "https://images.unsplash.com/photo-1756147670436-6583f9a2d55c?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MXx8fGVufDB8fHx8fA%3D%3D"}}
+      style={{
+        backgroundImage:
+          'url("https://images.unsplash.com/photo-1756147670436-6583f9a2d55c?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MXx8fGVufDB8fHx8fA%3D%3D")',
+      }}
     >
       {/* Top Left Logo (crisp, inside badge) */}
       <div className="mt-5 ml-8 z-20">
