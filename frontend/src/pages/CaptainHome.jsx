@@ -102,26 +102,9 @@ const CaptainHome = () => {
   }, [confirmRidePopUpPanel]);
 
   return (
-    <div className="h-screen w-screen flex flex-col bg-[#F5F5F5]">
-      <div className="fixed p-3 top-0 flex items-center justify-between w-screen">
-        <img
-          className="w-16"
-          src={pic}
-          alt="logo"
-        />
-        <Link
-          to={{
-            pathname: "/captain-riding",
-            state: { ride }, // Pass ride data
-          }}
-          className=" h-10 w-10 bg-white flex items-center justify-center rounded-full"
-        >
-          <i className="text-lg font-medium ri-logout-box-r-line"></i>
-        </Link>
-      </div>
-
+    <div className="h-screen w-screen flex flex-col bg-[#F5F5F5] pt-16">
       <div className="h-3/5 flex justify-center items-center">
-      <LiveTracking />
+        <LiveTracking />
       </div>
 
       <div className="h-2/5 p-6">

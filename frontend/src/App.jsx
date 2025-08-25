@@ -16,6 +16,8 @@ import CaptainRiding from "./pages/CaptainRiding";
 import "remixicon/fonts/remixicon.css";
 import Profile from "./pages/Profile";
 import Navbar from "./components/Navbar";
+import CaptainProfile from "./pages/CaptainProfile";
+import CaptainNavbar from "./components/CaptainNavbar";
 
 const App = () => {
   return (
@@ -61,7 +63,17 @@ const App = () => {
           path="/captain-home"
           element={
             <CaptainProtectedWrapper>
+              <CaptainNavbar />
               <CaptainHome />
+            </CaptainProtectedWrapper>
+          }
+        />
+        <Route
+          path="/captain-profile"
+          element={
+            <CaptainProtectedWrapper>
+              <CaptainNavbar />
+              <CaptainProfile />
             </CaptainProtectedWrapper>
           }
         />

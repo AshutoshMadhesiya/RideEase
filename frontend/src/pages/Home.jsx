@@ -14,9 +14,7 @@ import { useNavigate } from "react-router-dom";
 import LiveTracking from "../components/LiveTracking";
 import pic from "../assets/RideEaseUser.png"; // Logo
 
-
 const Home = () => {
-  
   const [pickup, setPickup] = useState("");
   const [destination, setDestination] = useState("");
   const [vehicleType, setVehicleType] = useState("");
@@ -35,30 +33,26 @@ const Home = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [activeField, setActiveField] = useState(null);
   const [fare, setFare] = useState({});
-  const { socket } = useContext(SocketContext); 
+  const { socket } = useContext(SocketContext);
   const { user } = useContext(UserDataContext);
   const [ride, setRide] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-
     socket.emit("join", { userType: "user", userId: user._id });
+  }, [user]);
 
-  },[user]);
-
-  socket.on('ride-confirmed', ride=>{
-
-    setWaitingForDriver(true)
-    setVehicleFound(false)
-    setRide(ride)
+  socket.on("ride-confirmed", (ride) => {
+    setWaitingForDriver(true);
+    setVehicleFound(false);
+    setRide(ride);
     // console.log("🚗 ride-confirmed received", ride);
-  })
+  });
 
-  socket.on('ride-started', ride=>{
-    setWaitingForDriver(false)
-    navigate('/riding', {state: {ride: ride}})
-    
-  })
+  socket.on("ride-started", (ride) => {
+    setWaitingForDriver(false);
+    navigate("/riding", { state: { ride: ride } });
+  });
 
   const createRide = async () => {
     try {
@@ -195,15 +189,10 @@ const Home = () => {
 
   return (
     <div className="h-screen relative overflow-hidden">
-      <img
-        className="w-20 absolute left-5 top-5"
-        src={pic}
-      ></img>
-      
       <div className=" flex flex-col justify-end h-screen absolute top-0 w-full">
         <div className="h-screen w-screen">
-         <LiveTracking /> 
-      </div>
+          <LiveTracking />
+        </div>
         <div className="h-[30%] p-5 bg-white relative">
           <h5
             ref={panelCloseRef}
@@ -309,9 +298,7 @@ const Home = () => {
         ref={waitingForDriverRef}
         className="fixed w-full z-10 bottom-0 bg-white px-3 py-10"
       >
-        <WaitingForDriver 
-        ride={ride}
-        waitingForDriver={waitingForDriver} />
+        <WaitingForDriver ride={ride} waitingForDriver={waitingForDriver} />
       </div>
     </div>
   );
