@@ -16,6 +16,7 @@ const Start = () => {
       }}
     >
       {/* Top Left Logo (crisp, inside badge) */}
+      <div className="absolute inset-0 bg-black/50"></div>
       <div className="mt-5 ml-8 z-20">
         <img
           className="w-20 bg-white p-0 rounded-lg shadow-lg"

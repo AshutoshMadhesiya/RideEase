@@ -31,6 +31,7 @@ const userSchema = new mongoose.Schema({
   phoneNumber:{
     type:String,
     unique:true,
+    sparse: true,
     minlength:[10,'Phone number must be at least 10 characters long'],
   }
 });

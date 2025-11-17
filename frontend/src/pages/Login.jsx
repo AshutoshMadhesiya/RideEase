@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
 import { UserDataContext } from "./../context/UserContext";
 import pic from "../assets/RideEaseUser.png";
 
@@ -14,7 +15,7 @@ const Login = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-  
+
     if (token) {
       navigate("/home");
     }
@@ -27,17 +28,26 @@ const Login = () => {
       password: password,
     };
 
-    const response = await axios.post(
-      `${import.meta.env.VITE_BASE_URL}/user/login`,
-      userData
-    );
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BASE_URL}/user/login`,
+        userData
+      );
 
-    if (response.status === 200) {
-      const data = response.data;
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("role", "user");
-      setUser(data.user);
-      navigate("/home");
+      if (response.status === 200) {
+        const data = response.data;
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("role", "user");
+        setUser(data.user);
+        toast.success("Login successful");
+        navigate("/home");
+      } else {
+        toast.error(response.data?.message || "Login failed");
+      }
+    } catch (err) {
+      console.error("Login error:", err);
+      const msg = err.response?.data?.message || err.message || "Login failed";
+      toast.error(msg);
     }
 
     setEmail("");
@@ -46,10 +56,7 @@ const Login = () => {
   return (
     <div className="p-7 h-screen flex flex-col justify-between max-w-md mx-auto  bg-gray-50">
       <div>
-        <img
-          className="w-24 mb-10 relative z-10"
-          src={pic}
-        />
+        <img className="w-24 mb-10 relative z-10" src={pic} />
         <form
           onSubmit={(e) => {
             submitHandler(e);
